@@ -7,6 +7,8 @@ from django.utils import timezone
 
 from django.utils.translation import gettext_lazy as _
 
+from django.utils.text import slugify
+
 
 
 # Create your models here.
@@ -27,11 +29,16 @@ class Product(models.Model):
     description = models.TextField(_('Description'), max_length=40000)
     quantity = models.IntegerField(_('Quantity'), )
     brand = models.ForeignKey('Brand', verbose_name='Brand', related_name='product_brand', on_delete=models.SET_NULL, null=True)
+    slug = models.SlugField(null=True, blank=True)
     
     tags = TaggableManager()
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Product, self).save(*args, **kwargs)
     
 class ProductImages(models.Model):
     product = models.ForeignKey(Product,verbose_name='Product', related_name='product_image', on_delete=models.CASCADE)
