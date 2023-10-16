@@ -7,6 +7,21 @@ from .models import Product, ProductImages, Review, Brand
 # Create your views here.
 
 
+# debug - queryset api tests
+def queryset_debug(request):
+    # data = Product.objects.all() # all products
+    # data = Product.objects.select_related('brand').all() # join with brand table
+    data = Product.objects.select_related('brand').all() # 
+    
+    
+    # continued .......................
+    
+    return render(request, 'product/debug.html', {'data':data})
+
+
+
+
+
 # product list
 class ProductList(ListView):
     model = Product
