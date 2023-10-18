@@ -7,7 +7,11 @@ django.setup()
 
 from faker import Faker
 import random
-from product.models import Brand, Product
+
+from django.contrib.auth.models import User
+
+from product.models import Brand, Product, Review
+
 
 
 def seed_brand(n):
@@ -41,6 +45,20 @@ def seed_product(n):
         )
     
     print(f"###### seed {n} Products Successfully ######")
+    
+    
+def seed_reviews(n):
+    fake = Faker()
+    
+    for i in range(n):
+        Review.objects.create(
+            user = User.objects.get(id=1),
+            review = fake.text(max_nb_chars=150),
+            rate = random.randint(0, 5),
+            product = Product.objects.get(id=i+5),
+        )
+    
+    print(f"###### seed {n} Products Successfully ######")
 
 # seed_brand(200)
-seed_product(2000)
+# seed_reviews(500)
