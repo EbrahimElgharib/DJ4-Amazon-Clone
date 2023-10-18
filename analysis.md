@@ -23,3 +23,20 @@ Products:
     - quantity
 
 
+
+Company:
+    - name
+    - logo
+    - subtitle
+    - call_us
+    - email_us
+    - phones
+    - address
+    - ios_app
+    - android_app
+    - facebook_link
+    - twitter_link
+    - youtube_link
+    - linkedin_link
+    - instagram_link
+    - pinterest_link

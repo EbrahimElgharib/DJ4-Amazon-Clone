@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 from django.utils.text import slugify
 
+from django.db.models.aggregates import Avg
 
 
 # Create your models here.
@@ -35,6 +36,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+    
+    # instance method ---> apply at each object
+    # we used it if we need it always
+    
+    # def avg_rate(self):
+    #     avg = self.review_product.aggregate(rate_avg=Avg('rate'))
+    #     return avg
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
