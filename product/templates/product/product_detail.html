@@ -62,12 +62,12 @@
                                 <p>BRAND:<a href="#">{{object.brand}}</a></p>
                             </div>
                             <div class="details-rating">
-                                <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="active icofont-star"></i>
-                                <i class="icofont-star"></i>
-                                <a href="#">(3 reviews)</a>
+                                <i class="{% if object.get_avg_rate > 0 %}active{% endif %} icofont-star"></i>
+                                <i class="{% if object.get_avg_rate > 1 %}active{% endif %} icofont-star"></i>
+                                <i class="{% if object.get_avg_rate > 2 %}active{% endif %} icofont-star"></i>
+                                <i class="{% if object.get_avg_rate > 3 %}active{% endif %} icofont-star"></i>
+                                <i class="{% if object.get_avg_rate > 4 %}active{% endif %} icofont-star"></i>
+                                <a href="#">({{reviews.count}} reviews)</a>
                             </div>
                             <h3 class="details-price">
                                 <span>{{object.price}}</span>

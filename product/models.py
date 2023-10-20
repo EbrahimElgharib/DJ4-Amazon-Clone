@@ -33,6 +33,8 @@ class Product(models.Model):
     slug = models.SlugField(null=True, blank=True)
     
     tags = TaggableManager()
+    
+
 
     def __str__(self):
         return self.name
@@ -40,13 +42,19 @@ class Product(models.Model):
     # instance method ---> apply at each object
     # we used it if we need it always
     
-    # def avg_rate(self):
-    #     avg = self.review_product.aggregate(rate_avg=Avg('rate'))
-    #     return avg
+
+    def get_avg_rate(self):
+        avg = self.review_product.aggregate(avg_rate=Avg('rate'))['avg_rate']
+        return avg if avg else 0
+    
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Product, self).save(*args, **kwargs)
+        
+    
+        
+        
     
 class ProductImages(models.Model):
     product = models.ForeignKey(Product,verbose_name='Product', related_name='product_image', on_delete=models.CASCADE)

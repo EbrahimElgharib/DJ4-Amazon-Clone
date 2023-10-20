@@ -32,6 +32,8 @@ class ProductList(ListView):
     
     
     
+    
+    
 # product details
 class ProductDetail(DetailView):
     model = Product   
