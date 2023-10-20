@@ -3,11 +3,27 @@ from .models import Product, Brand
 from django.db.models.aggregates import Avg
 
 
+
 # Serializer
 # will Show Format of Data
 
+class BrandListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = '__all__'
+        
+        
+        
 class ProductSerializer(serializers.ModelSerializer):
     # calc fields
+    
+    ### show all brand detail
+    # brand = BrandListSerializer()
+    
+    ### show only __str__ of brand model 
+    brand = serializers.StringRelatedField()
+    
+    
     avg_rate = serializers.SerializerMethodField()
     reviews_count = serializers.SerializerMethodField()
     price_with_tax = serializers.SerializerMethodField()
@@ -35,11 +51,7 @@ class ProductSerializer(serializers.ModelSerializer):
         return avg['rate_avg']
         
         
-class BrandListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = '__all__'
-        
+
         
 class BrandDetailSerializer(serializers.ModelSerializer):
     products = ProductSerializer(source='product_brand', many=True)
