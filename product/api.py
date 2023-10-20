@@ -1,6 +1,6 @@
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
-from .serializers import ProductSerializer, BrandSerializer
+from .serializers import ProductSerializer, BrandDetailSerializer, BrandListSerializer
 
 from rest_framework import generics
 
@@ -40,10 +40,10 @@ class ProductDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     
 class BrandListAPI(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
-    serializer_class = BrandSerializer
+    serializer_class = BrandListSerializer
     
     
 
 class BrandDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Brand.objects.all()
-    serializer_class = BrandSerializer
+    serializer_class = BrandDetailSerializer
