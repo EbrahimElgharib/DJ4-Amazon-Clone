@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import Product, Brand
+
 from django.db.models.aggregates import Avg
 
-
+from .models import Product, Brand, Review
 
 # Serializer
 # will Show Format of Data
@@ -13,12 +13,18 @@ class BrandListSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
         
+class ReviewsSerializer(serializers.ModelSerializer):    
+    class Meta:
+        model = Review
+        fields = '__all__' 
+        
         
 class ProductSerializer(serializers.ModelSerializer):
     # calc fields
     
     ### show all brand detail
     # brand = BrandListSerializer()
+    reviews = ReviewsSerializer(source='review_product', many=True)
     
     ### show only __str__ of brand model 
     brand = serializers.StringRelatedField()
@@ -54,7 +60,11 @@ class ProductSerializer(serializers.ModelSerializer):
 
         
 class BrandDetailSerializer(serializers.ModelSerializer):
+    reviews = ReviewsSerializer(source='review_product', many=True)
+    
     products = ProductSerializer(source='product_brand', many=True)
     class Meta:
         model = Brand
         fields = '__all__'
+        
+        
